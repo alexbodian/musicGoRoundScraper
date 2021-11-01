@@ -19,16 +19,33 @@ const fs = require("fs");
 
   // let guitars;
 
-  const tweets = await page.$$eval(".card", (element) => element.innerHTML);
+  const tweets = await page.$$eval(
+    ".card.w-100.border-hover.align-items-stretch.cursor-pointer",
+    (element) => element.innerHTML
+  );
 
   // let's just call them tweetHandle
 
-  const tweetHandles = await page.$$(".card");
+  const tweetHandles = await page.$$(
+    ".card.w-100.border-hover.align-items-stretch.cursor-pointer"
+  );
 
   let guitars = [];
 
-  // loop thru all handles
+  // list of all guitars on the page
   for (const tweethandle of tweetHandles) {
+    // pass the single handle below
+    const singleTweet = await page.evaluate((el) => el.innerHTML, tweethandle);
+
+    guitars.push(singleTweet);
+    // do whatever you want with the data
+    console.log(singleTweet);
+  }
+
+  // class="d-flex flex-fill text-decoration-none"
+  const guitarLinks = await page.$$(".d-flex.flex-fill.text-decoration-none");
+
+  for (const tweethandle of guitarLinks) {
     // pass the single handle below
     const singleTweet = await page.evaluate((el) => el.innerHTML, tweethandle);
 
@@ -43,8 +60,6 @@ const fs = require("fs");
     // In case of a error throw err.
     if (err) throw err;
   });
-
-  await page.screenshot({ path: "example.png" });
 
   await browser.close();
 })();
