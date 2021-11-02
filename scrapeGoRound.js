@@ -67,16 +67,16 @@ let listOfPages = [];
   guitars = [];
 
   for (i = 2; i <= listOfPages[listOfPages.length - 2]; i++) {
-    await page.setDefaultNavigationTimeout(12220);
+    await page.setDefaultNavigationTimeout(0);
     let newpage =
       "https://www.musicgoround.com/products/GUEL/electric-guitars?sortBy=xp.Price&page" +
       i;
     await page.goto(newpage);
 
-    await page.goto(newpage, {
-      waitUntil: "networkidle2",
-      timeout: 0,
-    });
+    // await page.goto(newpage, {
+    //   waitUntil: "networkidle2",
+    //   timeout: 0,
+    // });
 
     await page.waitForNavigation({
       waitUntil: "networkidle0",
