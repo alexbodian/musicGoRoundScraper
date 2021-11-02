@@ -31,30 +31,30 @@ const fs = require("fs");
   );
 
   let guitars = [];
+  let links = [];
 
   // list of all guitars on the page
   for (const tweethandle of tweetHandles) {
     // pass the single handle below
     const singleTweet = await page.evaluate((el) => el.innerHTML, tweethandle);
 
-    guitars.push(singleTweet);
     // do whatever you want with the data
-    console.log(singleTweet);
+    // console.log(singleTweet);
   }
 
   // class="d-flex flex-fill text-decoration-none"
-  const guitarLinks = await page.$$(".d-flex.flex-fill.text-decoration-none");
+  const guitarLinks = await page.$$("a.d-flex.flex-fill.text-decoration-none");
 
   for (const tweethandle of guitarLinks) {
     // pass the single handle below
-    const singleTweet = await page.evaluate((el) => el.innerHTML, tweethandle);
+    const singleTweet = await page.evaluate((el) => el.href, tweethandle);
 
-    guitars.push(singleTweet);
+    links.push(singleTweet);
     // do whatever you want with the data
-    console.log(singleTweet);
+    // console.log(singleTweet);
   }
 
-  // console.log(guitars\);
+  console.log(links[0]);
 
   fs.writeFile("Output.txt", guitars, (err) => {
     // In case of a error throw err.
