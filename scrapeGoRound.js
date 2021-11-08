@@ -4,8 +4,12 @@ let guitars = [];
 let links = [];
 let listOfPages = [];
 
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 (async () => {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({ headless: true });
 
   const page = await browser.newPage();
   await page.goto(
@@ -16,17 +20,14 @@ let listOfPages = [];
     waitUntil: "networkidle0",
   });
 
+  // grabs the max page
   const pages = await page.$$(".page-link");
-
   for (const tweethandle of pages) {
     // pass the single handle below
     const singleTweet = await page.evaluate((el) => el.innerText, tweethandle);
 
     listOfPages.push(singleTweet);
   }
-  // console.log("listOfPages length: " + listOfPages.length);
-
-  // console.log(listOfPages[listOfPages.length - 2]);
 
   const tweetHandles = await page.$$("product-product-card");
 
@@ -42,16 +43,16 @@ let listOfPages = [];
   // class="d-flex flex-fill text-decoration-none"
   const guitarLinks = await page.$$("a.d-flex.flex-fill.text-decoration-none");
 
+  // grabs the links for guitars listed
   for (const tweethandle of guitarLinks) {
     // pass the single handle below
     const singleTweet = await page.evaluate((el) => el.href, tweethandle);
-
     links.push(singleTweet);
-    // do whatever you want with the data
-    // console.log(singleTweet);
   }
+
   console.log("Page 1 of " + listOfPages[listOfPages.length - 2] + " scraped");
 
+  // updates relative link to absolute
   for (i = 0; i < guitars.length; i++) {
     guitars[i] = guitars[i].replace(
       "/product/",
@@ -59,27 +60,24 @@ let listOfPages = [];
     );
   }
 
-  fs.writeFile("Output.txt", guitars, (err) => {
+  // outputs first page contents to a file
+  fs.appendFile("Output.txt", guitars, (err) => {
     // In case of a error throw err.
     if (err) throw err;
   });
 
   guitars = [];
 
+  // looping through all other pages
   for (i = 2; i <= listOfPages[listOfPages.length - 2]; i++) {
     await page.setDefaultNavigationTimeout(0);
     let newpage =
-      "https://www.musicgoround.com/products/GUEL/electric-guitars?sortBy=xp.Price&page" +
+      "https://www.musicgoround.com/products/GUEL/electric-guitars?sortBy=xp.Price&page=" +
       i;
-    await page.goto(newpage);
 
-    // await page.goto(newpage, {
-    //   waitUntil: "networkidle2",
-    //   timeout: 0,
-    // });
-
-    await page.waitForNavigation({
-      waitUntil: "networkidle0",
+    await page.goto(newpage, {
+      waitUntil: "networkidle2",
+      timeout: 0,
     });
 
     const cards = await page.$$("product-product-card");
@@ -118,7 +116,7 @@ let listOfPages = [];
       );
     }
 
-    fs.writeFile("Output.txt", guitars, (err) => {
+    fs.appendFile("Output.txt", guitars, (err) => {
       // In case of a error throw err.
       if (err) throw err;
     });
