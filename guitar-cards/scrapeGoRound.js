@@ -1,5 +1,6 @@
 const puppeteer = require("puppeteer");
 const fs = require("fs");
+const { exit } = require("process");
 let guitars = [];
 let links = [];
 let listOfPages = [];
@@ -61,11 +62,16 @@ function sleep(ms) {
   }
 
   // outputs first page contents to a file
-    console.log("breaks here")
-  fs.appendFile("Output.txt", guitars, (err) => {
-    // In case of a error throw err.
-    if (err) throw err;
-  });
+
+
+
+    fs.appendFile("Output.txt", guitars.toString(), (err) => {
+      // In case of a error throw err.
+      if (err) throw err;
+    });
+
+
+    exit
 
   guitars = [];
 
@@ -116,11 +122,13 @@ function sleep(ms) {
         "https://www.musicgoround.com/product/"
       );
     }
-
-    fs.appendFile("Output.txt", guitars, (err) => {
+    for(guitar in guitars){
+    
+    fs.appendFile("Output.txt", guitar.toString(), (err) => {
       // In case of a error throw err.
       if (err) throw err;
     });
+  }
 
     guitars = [];
   }
