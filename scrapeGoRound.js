@@ -1,5 +1,6 @@
 const puppeteer = require("puppeteer");
 const fs = require("fs");
+const { exit } = require("process");
 let guitars = [];
 let links = [];
 let listOfPages = [];
@@ -61,16 +62,22 @@ function sleep(ms) {
   }
 
   // outputs first page contents to a file
-  fs.appendFile("Output.txt", guitars, (err) => {
-    // In case of a error throw err.
-    if (err) throw err;
-  });
+
+
+
+    fs.appendFile("Output.txt", guitars.toString(), (err) => {
+      // In case of a error throw err.
+      if (err) throw err;
+    });
+
+
+    exit
 
   guitars = [];
 
   // looping through all other pages
   for (i = 2; i <= listOfPages[listOfPages.length - 2]; i++) {
-    await page.setDefaultNavigationTimeout(0);
+    // await page.setDefaultNavigationTimeout(0);
     let newpage =
       "https://www.musicgoround.com/products/GUEL/electric-guitars?sortBy=xp.Price&page=" +
       i;
@@ -115,11 +122,13 @@ function sleep(ms) {
         "https://www.musicgoround.com/product/"
       );
     }
-
-    fs.appendFile("Output.txt", guitars, (err) => {
+    for(guitar in guitars){
+    
+    fs.appendFile("Output.txt", guitar.toString(), (err) => {
       // In case of a error throw err.
       if (err) throw err;
     });
+  }
 
     guitars = [];
   }
