@@ -11,3 +11,8 @@ is contained within an array
 
 In order to grab relevant info can parse it per item since
 it is segemented by element in the array that it is inserted into
+
+Regex for grabbing listing title
+/title([\s\S]*?)">/
+
+let name = 
