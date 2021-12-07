@@ -76,7 +76,8 @@ function sleep(ms) {
   guitars = [];
 
   // looping through all other pages
-  for (i = 2; i <= listOfPages[listOfPages.length - 2]; i++) {
+  // for (i = 2; i <= listOfPages[listOfPages.length - 2]; i++)
+  for (i = 2; i < i; i++) {
     // await page.setDefaultNavigationTimeout(0);
     let newpage =
       "https://www.musicgoround.com/products/GUEL/electric-guitars?sortBy=xp.Price&page=" +
@@ -137,3 +138,5 @@ function sleep(ms) {
 
   await browser.close();
 })();
+
+
