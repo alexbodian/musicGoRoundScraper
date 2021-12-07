@@ -1,0 +1,13 @@
+Relevant stuff to pull from scraper
+
+* Name of item
+* Price 
+* Usage (Used/New)
+* Location
+
+Each item is contained within a <product-product-card> element 
+and has each one is separated by a comma because of how each one 
+is contained within an array
+
+In order to grab relevant info can parse it per item since
+it is segemented by element in the array that it is inserted into
