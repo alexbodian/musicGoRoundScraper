@@ -2,7 +2,9 @@ Relevant stuff to pull from scraper
 
 * Name of item
 * Price 
-* Usage (Used/New)
+* Link to page
+* Link to image
+* Condition (Used/New)
 * Location
 
 Each item is contained within a <product-product-card> element 
