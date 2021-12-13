@@ -39,7 +39,7 @@ function sleep(ms) {
     const single = await page.evaluate((el) => el.outerHTML, tweethandle);
 
     guitars.push(single);
-    // console.log(singleTweet);
+    // console.log(single);
   }
 
   // class="d-flex flex-fill text-decoration-none"
@@ -50,8 +50,8 @@ function sleep(ms) {
     // pass the single handle below
     const singleTweet = await page.evaluate((el) => el.href, tweethandle);
     links.push(singleTweet);
+    // console.log(singleTweet);
   }
-
   console.log("Page 1 of " + listOfPages[listOfPages.length - 2] + " scraped");
 
   // updates relative link to absolute
@@ -62,27 +62,34 @@ function sleep(ms) {
     );
   }
 
+  allGuitars = [...guitars];
+  console.log(allGuitars.length);
+    for (guitar in guitars) {
+    // console.log(guitar)
+    allGuitars.push(guitar);
+
+  }
+
   // outputs first page contents to a file
 
-  console.log(guitars)
+  // console.log(allGuitars);
 
 
-    fs.appendFile("Output.txt", guitars.toString(), (err) => {
-      // In case of a error throw err.
-      if (err) throw err;
-    });
+  fs.appendFile("Output.txt", guitars.toString(), (err) => {
 
-    for (guitar in guitars){
-      allGuitars.push(guitar);
 
-    }
+    // In case of a error throw err.
+    if (err) throw err;
+  });
+
+
 
 
   guitars = [];
 
   // looping through all other pages
   // for (i = 2; i <= listOfPages[listOfPages.length - 2]; i++)
-  for (i = 2; i < i; i++) {
+  for (i = 2; i <= 10; i++) {
     // await page.setDefaultNavigationTimeout(0);
     let newpage =
       "https://www.musicgoround.com/products/GUEL/electric-guitars?sortBy=xp.Price&page=" +
@@ -126,70 +133,77 @@ function sleep(ms) {
       guitars[id] = guitars[id].replace(
         "/product/",
         "https://www.musicgoround.com/product/"
+
       );
+      console.log(guitars[id]);
     }
-    for(guitar in guitars){
-      allGuitars.push(guitar);  
-      fs.appendFile("Output.txt", guitar.toString(), (err) => {
-        // In case of a error throw err.
-        if (err) throw err;
-      });
-    }
+    console.log(guitar.toString)
+
+    allGuitars = 
+
+    fs.appendFile("Output.txt", guitar.toString(), (err) => {
+      // In case of a error throw err.
+      if (err) throw err;
+    });
 
 
+    // console.log("test");
     guitars = [];
   }
 
   // console.log(guitars[0]);
 
   await browser.close();
+
+  // console.log(allGuitars);
+
+  // for (text in allGuitars){
+  //   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec
+  // // https://regex101.com/
+  // // * Name of item
+  // // * Price 
+  // // * Link to page
+  // // * Link to image
+  // // * Condition (Used/New)
+  // // * Location
+
+
+  // // Grabs name of the item
+  // let itemRegEx = /title([\s\S]*?)">/;
+  // let arr = itemRegEx.exec(text);
+  // nameItem = (arr[0].split('"'))[1]; 
+  // console.log(nameItem);
+
+  // // Grabs price of item
+  // let priceRegEx = /-0">([\s\S]*?)<\/p><!/g;
+  // arr = priceRegEx.exec(text);
+  // namePrice = (arr[0].split(' '))[1]; 
+  // console.log(namePrice);
+
+  // // Grabs link to page
+  // let pageRegEx = /="https:\/\/www.musicgoround.com\/product\/([\s\S]*?)">/g;
+  // arr = pageRegEx.exec(text);
+  // nameLink = (arr[0].split('='))[1]; 
+  // nameLink = (arr[0].split('"'))[1]; 
+  // console.log(nameLink);
+
+  // // Grabs condition of the item
+  // let conditionRegEx = /<small>([\s\S]*?)<\/small><!/g;
+  // arr = conditionRegEx.exec(text);
+  // nameCondition = arr[1];
+  // console.log(nameCondition);
+
+  // // Grabs location of the item
+  // let locationRegEx = /n><small>([\s\S]*?)<\//g;
+  // arr = locationRegEx.exec(text);
+  // nameLocation = arr[1];
+  // console.log(nameLocation);
+  // }
+
+
 })();
 
 
-for (text in allGuitars){
-  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec
-// https://regex101.com/
-// * Name of item
-// * Price 
-// * Link to page
-// * Link to image
-// * Condition (Used/New)
-// * Location
-
-const fs = require("fs");
-let text = fs.readFileSync("./Output.txt").toString('utf-8');
-
-// Grabs name of the item
-let itemRegEx = /title([\s\S]*?)">/;
-let arr = itemRegEx.exec(text);
-nameItem = (arr[0].split('"'))[1]; 
-console.log(nameItem);
-
-// Grabs price of item
-let priceRegEx = /-0">([\s\S]*?)<\/p><!/g;
-arr = priceRegEx.exec(text);
-namePrice = (arr[0].split(' '))[1]; 
-console.log(namePrice);
-
-// Grabs link to page
-let pageRegEx = /="https:\/\/www.musicgoround.com\/product\/([\s\S]*?)">/g;
-arr = pageRegEx.exec(text);
-nameLink = (arr[0].split('='))[1]; 
-nameLink = (arr[0].split('"'))[1]; 
-console.log(nameLink);
-
-// Grabs condition of the item
-let conditionRegEx = /<small>([\s\S]*?)<\/small><!/g;
-arr = conditionRegEx.exec(text);
-nameCondition = arr[1];
-console.log(nameCondition);
-
-// Grabs location of the item
-let locationRegEx = /n><small>([\s\S]*?)<\//g;
-arr = locationRegEx.exec(text);
-nameLocation = arr[1];
-console.log(nameLocation);
-}
 
 
 
