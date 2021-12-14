@@ -151,7 +151,7 @@ function sleep(ms) {
   
   for (i = 0; i < allGuitars.length; i++) {
     console.log(i);
-    console.log(allGuitars[i]);
+    if(i === 23) console.log(allGuitars[i]);
     console.log();
   }
 
