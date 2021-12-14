@@ -128,9 +128,10 @@ function sleep(ms) {
       );
       // console.log(guitars[id]);
     }
-    // console.log(guitars)
+    
 
     allGuitars.push.apply(allGuitars, guitars);
+    // console.log(allGuitars[allGuitars.length - 3])
     // console.log(allGuitars);
 
     fs.appendFile("Output.txt", guitars.toString(), (err) => {
@@ -151,7 +152,7 @@ function sleep(ms) {
   
   for (i = 0; i < allGuitars.length; i++) {
     console.log(i);
-    if(i === 23) console.log(allGuitars[i]);
+    console.log(allGuitars[i].length);
     console.log();
   }
 
