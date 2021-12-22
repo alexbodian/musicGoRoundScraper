@@ -87,8 +87,9 @@ function sleep(ms) {
   guitars = [];
 
   // looping through all other pages
-  // for (i = 2; i <= listOfPages[listOfPages.length - 2]; i++)
-  for (i = 2; i <= 10; i++) {
+  for (i = 2; i <= listOfPages[listOfPages.length - 2]; i++)
+  // for (i = 2; i <= 10; i++) 
+  {
     // await page.setDefaultNavigationTimeout(0);
     let newpage =
       "https://www.musicgoround.com/products/GUEL/electric-guitars?sortBy=xp.Price&page=" +
@@ -158,7 +159,7 @@ function sleep(ms) {
     }
   }
 
-
+  let writer = fs.createWriteStream('output.txt');
 
 
 
@@ -205,10 +206,7 @@ function sleep(ms) {
     item.push(nameItem,namePrice,nameLocation,nameLink);
 
     for (let num = 0; num < item.length; num++){
-      fs.appendFile("Output.txt", item[num] + "\n", (err) => {
-        // In case of a error throw err.
-        if (err) throw err;
-      });
+      writer.write(item[num] + "\n" + "\n");
     }
 
     // fs.appendFile("Output.txt", '\n', (err) => {
