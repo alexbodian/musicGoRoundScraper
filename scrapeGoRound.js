@@ -5,6 +5,7 @@ let guitars = [];
 let links = [];
 let listOfPages = [];
 let allGuitars = [];
+let locationDictionary = {};
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -159,7 +160,7 @@ function sleep(ms) {
   }
 
   let writer = fs.createWriteStream('output.txt');
-
+  let locations = fs.createWriteStream('locations.txt');
 
 
   for (i = 0; i < allGuitarsActual.length; i++) {
@@ -199,6 +200,7 @@ function sleep(ms) {
     let locationRegEx = /n><small>([\s\S]*?)<\//g;
     arr = locationRegEx.exec(text);
     let nameLocation = arr[1];
+    locationDictionary[nameLocation] = nameLocation;
     // console.log(nameLocation);
 
     // console.log("");
@@ -218,6 +220,7 @@ function sleep(ms) {
 
   }
 
+  for (let key in locationDictionary) locations.write(locationDictionary[key]);
 
 })();
 
