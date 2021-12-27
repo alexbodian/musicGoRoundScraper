@@ -87,9 +87,8 @@ function sleep(ms) {
   guitars = [];
 
   // looping through all other pages
-  for (i = 2; i <= listOfPages[listOfPages.length - 2]; i++)
-  // for (i = 2; i <= 10; i++) 
-  {
+  for (i = 2; i <= listOfPages[listOfPages.length - 2]; i++) {
+    // for (i = 2; i <= 10; i++) {
     // await page.setDefaultNavigationTimeout(0);
     let newpage =
       "https://www.musicgoround.com/products/GUEL/electric-guitars?sortBy=xp.Price&page=" +
@@ -129,7 +128,7 @@ function sleep(ms) {
       );
       // console.log(guitars[id]);
     }
-    
+
 
     allGuitars.push.apply(allGuitars, guitars);
     // console.log(allGuitars[allGuitars.length - 3])
@@ -154,7 +153,7 @@ function sleep(ms) {
   let allGuitarsActual = [];
 
   for (i = 0; i < allGuitars.length; i++) {
-    if (allGuitars[i].length > 50){
+    if (allGuitars[i].length > 50) {
       allGuitarsActual.push(allGuitars[i]);
     }
   }
@@ -201,13 +200,14 @@ function sleep(ms) {
     arr = locationRegEx.exec(text);
     let nameLocation = arr[1];
     // console.log(nameLocation);
-    
-    // console.log("");
-    item.push(nameItem,namePrice,nameLocation,nameLink);
 
-    for (let num = 0; num < item.length; num++){
-      writer.write(item[num] + "\n" + "\n");
+    // console.log("");
+    item.push(nameItem, namePrice, nameLocation, nameLink);
+
+    for (let num = 0; num < item.length; num++) {
+      writer.write(item[num] + "\n");
     }
+    writer.write("\n");
 
     // fs.appendFile("Output.txt", '\n', (err) => {
     //   // In case of a error throw err.
