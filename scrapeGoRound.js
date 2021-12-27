@@ -6,6 +6,7 @@ let links = [];
 let listOfPages = [];
 let allGuitars = [];
 let locationDictionary = {};
+let allGuitarObjects = [];
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -159,8 +160,8 @@ function sleep(ms) {
     }
   }
 
-  let writer = fs.createWriteStream('output.txt');
-  let locations = fs.createWriteStream('locations.txt');
+  // let writer = fs.createWriteStream('output.txt');
+  // let locations = fs.createWriteStream('locations.txt');
 
 
   for (i = 0; i < allGuitarsActual.length; i++) {
@@ -206,21 +207,32 @@ function sleep(ms) {
     // console.log("");
     item.push(nameItem, namePrice, nameLocation, nameLink);
 
-    for (let num = 0; num < item.length; num++) {
-      writer.write(item[num] + "\n");
-    }
-    writer.write("\n");
+    let guitar = {name: nameItem, price: namePrice, link: nameLink, location: nameLocation};
+    allGuitarObjects.push(guitar);
+    // for (let num = 0; num < item.length; num++) {
+    //   writer.write(item[num] + "\n");
+    // }
+    // writer.write("\n");
 
-    // fs.appendFile("Output.txt", '\n', (err) => {
-    //   // In case of a error throw err.
-    //   if (err) throw err;
-    // });
 
     item = [];
 
   }
 
-  for (let key in locationDictionary) locations.write(locationDictionary[key]);
+  // for (let key in locationDictionary) locations.write(locationDictionary[key] + "\n");
+  let guitarData = JSON.stringify(allGuitarObjects);
+
+    fs.appendFile("guitars.json",  guitarData, (err) => {
+    // In case of a error throw err.
+    if (err) throw err;
+  });
+  
+  let locationData = JSON.stringify(locationDictionary);
+  fs.appendFile("locations.json",  locationData, (err) => {
+    // In case of a error throw err.
+    if (err) throw err;
+  });
+
 
 })();
 
