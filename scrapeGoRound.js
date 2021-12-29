@@ -71,17 +71,6 @@ function sleep(ms) {
 
   }
 
-  // outputs first page contents to a file
-
-  // console.log(allGuitars);
-
-
-  // fs.appendFile("Output.txt", guitars.toString(), (err) => {
-
-
-  //   // In case of a error throw err.
-  //   if (err) throw err;
-  // });
 
 
 
@@ -90,7 +79,7 @@ function sleep(ms) {
 
   // looping through all other pages
   for (i = 2; i <= listOfPages[listOfPages.length - 2]; i++) {
-    // for (i = 2; i <= 10; i++) {
+    // for (i = 2; i <= 3; i++) {
     // await page.setDefaultNavigationTimeout(0);
     let newpage =
       "https://www.musicgoround.com/products/GUEL/electric-guitars?sortBy=xp.Price&page=" +
@@ -163,7 +152,8 @@ function sleep(ms) {
   // let writer = fs.createWriteStream('output.txt');
   // let locations = fs.createWriteStream('locations.txt');
 
-
+  
+  
   for (i = 0; i < allGuitarsActual.length; i++) {
     //   https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec
     // https://regex101.com/
@@ -175,6 +165,7 @@ function sleep(ms) {
     // * Location
     // console.log(text);
     // console.log(i)
+    
     let text = allGuitarsActual[i];
     let item = [];
     // Grabs name of the item
@@ -186,33 +177,43 @@ function sleep(ms) {
     // Grabs price of item
     let priceRegEx = /-0">([\s\S]*?)<\/p><!/g;
     arr = priceRegEx.exec(text);
-    let namePrice = (arr[0].split(' '))[1];
-    // console.log(namePrice);
+    let namePrice = "";
+    if (arr[0].split(' ')[1] === null){
+      priceRegEx =  /discounted-price">([\s\S]*?)<\/p><!/g;
+      arr = priceRegEx.exec(text);
+      namePrice = arr[0].split(' ')[1]
+    }else{
+      namePrice = (arr[0].split(' '))[1];
+    }
+    
+    
+    
+    
 
     // Grabs link to page
     let pageRegEx = /="https:\/\/www.musicgoround.com\/product\/([\s\S]*?)">/g;
     arr = pageRegEx.exec(text);
     let nameLink = (arr[0].split('='))[1];
     nameLink = (arr[0].split('"'))[1];
-    // console.log(nameLink);
-
+    
+    let imageRegEx = /src="([\s\S]*?)">/g;
+    arr = imageRegEx.exec(text);
+    let nameImage = (arr[0].split('='))[1];
+    nameImage = (arr[0].split('"'))[1];
 
     // Grabs location of the item
     let locationRegEx = /n><small>([\s\S]*?)<\//g;
     arr = locationRegEx.exec(text);
     let nameLocation = arr[1];
     locationDictionary[nameLocation] = nameLocation;
-    // console.log(nameLocation);
+    
 
-    // console.log("");
-    item.push(nameItem, namePrice, nameLocation, nameLink);
+    
+    item.push(nameItem, namePrice, nameLocation, nameLink, nameImage);
 
-    let guitar = {name: nameItem, price: namePrice, link: nameLink, location: nameLocation};
+    let guitar = {name: nameItem, price: namePrice, link: nameLink, location: nameLocation, img: nameImage};
     allGuitarObjects.push(guitar);
-    // for (let num = 0; num < item.length; num++) {
-    //   writer.write(item[num] + "\n");
-    // }
-    // writer.write("\n");
+    
 
 
     item = [];
