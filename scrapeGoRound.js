@@ -178,10 +178,9 @@ function sleep(ms) {
     let priceRegEx = /-0">([\s\S]*?)<\/p><!/g;
     arr = priceRegEx.exec(text);
     let namePrice = "";
-    console.log("Element: " + i)
-    if (i === 155) console.log(allGuitarsActual[i]);
 
-    if (arr[0].split(' ')[1] === null) {
+
+    if (arr == null) {
       priceRegEx = /discounted-price">([\s\S]*?)<\/p><!/g;
       arr = priceRegEx.exec(text);
       namePrice = arr[0].split(' ')[1]
