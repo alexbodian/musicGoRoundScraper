@@ -152,8 +152,8 @@ function sleep(ms) {
   // let writer = fs.createWriteStream('output.txt');
   // let locations = fs.createWriteStream('locations.txt');
 
-  
-  
+
+
   for (i = 0; i < allGuitarsActual.length; i++) {
     //   https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec
     // https://regex101.com/
@@ -165,7 +165,7 @@ function sleep(ms) {
     // * Location
     // console.log(text);
     // console.log(i)
-    
+
     let text = allGuitarsActual[i];
     let item = [];
     // Grabs name of the item
@@ -178,24 +178,27 @@ function sleep(ms) {
     let priceRegEx = /-0">([\s\S]*?)<\/p><!/g;
     arr = priceRegEx.exec(text);
     let namePrice = "";
-    if (arr[0].split(' ')[1] === null){
-      priceRegEx =  /discounted-price">([\s\S]*?)<\/p><!/g;
+    console.log("Element: " + i)
+    if (i === 155) console.log(allGuitarsActual[i]);
+
+    if (arr[0].split(' ')[1] === null) {
+      priceRegEx = /discounted-price">([\s\S]*?)<\/p><!/g;
       arr = priceRegEx.exec(text);
       namePrice = arr[0].split(' ')[1]
-    }else{
+    } else {
       namePrice = (arr[0].split(' '))[1];
     }
-    
-    
-    
-    
+
+
+
+
 
     // Grabs link to page
     let pageRegEx = /="https:\/\/www.musicgoround.com\/product\/([\s\S]*?)">/g;
     arr = pageRegEx.exec(text);
     let nameLink = (arr[0].split('='))[1];
     nameLink = (arr[0].split('"'))[1];
-    
+
     let imageRegEx = /src="([\s\S]*?)">/g;
     arr = imageRegEx.exec(text);
     let nameImage = (arr[0].split('='))[1];
@@ -206,14 +209,14 @@ function sleep(ms) {
     arr = locationRegEx.exec(text);
     let nameLocation = arr[1];
     locationDictionary[nameLocation] = nameLocation;
-    
 
-    
+
+
     item.push(nameItem, namePrice, nameLocation, nameLink, nameImage);
 
-    let guitar = {name: nameItem, price: namePrice, link: nameLink, location: nameLocation, img: nameImage};
+    let guitar = { name: nameItem, price: namePrice, link: nameLink, location: nameLocation, img: nameImage };
     allGuitarObjects.push(guitar);
-    
+
 
 
     item = [];
@@ -223,13 +226,13 @@ function sleep(ms) {
   // for (let key in locationDictionary) locations.write(locationDictionary[key] + "\n");
   let guitarData = JSON.stringify(allGuitarObjects);
 
-    fs.appendFile("guitars.json",  guitarData, (err) => {
+  fs.appendFile("guitars.json", guitarData, (err) => {
     // In case of a error throw err.
     if (err) throw err;
   });
-  
+
   let locationData = JSON.stringify(locationDictionary);
-  fs.appendFile("locations.json",  locationData, (err) => {
+  fs.appendFile("locations.json", locationData, (err) => {
     // In case of a error throw err.
     if (err) throw err;
   });
