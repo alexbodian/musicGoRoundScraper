@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "bulma": "^0.9.3",
     "puppeteer": "^11.0.0"
   }
 }
