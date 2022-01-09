@@ -11,6 +11,11 @@ fetch("guitars.json")
         data.forEach(function (guitar) {
             const div = document.createElement('div')
             div.textContent = guitar.price + " " + guitar.name
+            div.classList.add("card")
+            // const img = document.createElement('div')
+            // img.classList.add("card-img-top")
+            // img.src = guitar.img
             document.querySelector('body').appendChild(div)
+            // document.querySelector('#card').appendChild(img)
         })
     })
