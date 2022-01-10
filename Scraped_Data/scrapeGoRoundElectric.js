@@ -225,6 +225,11 @@ function sleep(ms) {
   // for (let key in locationDictionary) locations.write(locationDictionary[key] + "\n");
   let guitarData = JSON.stringify(allGuitarObjects);
 
+  try {
+    fs.unlinkSync("./guitars.json");
+  } catch (err) {
+    console.error(err)
+  }
   fs.appendFile("guitars.json", guitarData, (err) => {
     // In case of a error throw err.
     if (err) throw err;
