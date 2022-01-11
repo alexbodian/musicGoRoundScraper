@@ -17,7 +17,7 @@ function sleep(ms) {
 
     const page = await browser.newPage();
     await page.goto(
-        "https://www.musicgoround.com/products/GUAC/acoustic-guitars?sortBy=xp.Price&page=1"
+        "https://www.musicgoround.com/products/GUBA/bass-guitars?sortBy=xp.Price&page=1"
     );
 
     await page.waitForNavigation({
@@ -82,7 +82,7 @@ function sleep(ms) {
         // for (i = 2; i <= 3; i++) {
         // await page.setDefaultNavigationTimeout(0);
         let newpage =
-            "https://www.musicgoround.com/products/GUAC/acoustic-guitars?sortBy=xp.Price&page=" +
+            "https://www.musicgoround.com/products/GUBA/bass-guitars?sortBy=xp.Price&page=" +
             i;
 
         await page.goto(newpage, {
@@ -225,13 +225,14 @@ function sleep(ms) {
     // for (let key in locationDictionary) locations.write(locationDictionary[key] + "\n");
     let guitarData = JSON.stringify(allGuitarObjects);
 
+
     try {
-        fs.unlinkSync("./Acousticguitars.json");
+        fs.unlinkSync("Scraped_Data/BassGuitars.json");
     } catch (err) {
         console.error(err)
     }
 
-    fs.appendFile("Acousticguitars.json", guitarData, (err) => {
+    fs.appendFile("Scraped_Data/BassGuitars.json", guitarData, (err) => {
         // In case of a error throw err.
         if (err) throw err;
     });

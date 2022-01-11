@@ -226,11 +226,11 @@ function sleep(ms) {
   let guitarData = JSON.stringify(allGuitarObjects);
 
   try {
-    fs.unlinkSync("./guitars.json");
+    fs.unlinkSync("Scraped_Data/guitars.json");
   } catch (err) {
     console.error(err)
   }
-  fs.appendFile("guitars.json", guitarData, (err) => {
+  fs.appendFile("Scraped_Data/guitars.json", guitarData, (err) => {
     // In case of a error throw err.
     if (err) throw err;
   });
