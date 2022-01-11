@@ -238,7 +238,7 @@ function sleep(ms) {
     });
 
     let locationData = JSON.stringify(locationDictionary);
-    fs.appendFile("locations.json", locationData, (err) => {
+    fs.appendFile("Scraped_Data/locations.json", locationData, (err) => {
         // In case of a error throw err.
         if (err) throw err;
     });
