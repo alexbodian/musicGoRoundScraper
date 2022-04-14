@@ -5,7 +5,7 @@ let guitars;
 let container = document.getElementById("main_container");
 const ps = document.querySelectorAll('body')
 
-fetch("guitars.json")
+fetch("ScrapedData/guitars.json")
     .then(response => response.json())
     .then(data => {
         data.forEach(function (guitar) {
