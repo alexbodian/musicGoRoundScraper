@@ -194,7 +194,7 @@ function sleep(ms) {
 
         // Grabs link to page
         let pageRegEx = /="https:\/\/www.musicgoround.com\/product\/([\s\S]*?)">/g;
-        arr = pageRegEx.exec(text);
+
         let nameLink = (arr[0].split('='))[1];
         nameLink = (arr[0].split('"'))[1];
 
