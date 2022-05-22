@@ -26,7 +26,7 @@ const { exit } = require("process");
         waitUntil: "networkidle0",
     });
 
-    const elements = await page.$$("p");
+    const elements = await page.$$("text-muted");
     let count = 0;
 
     let shippingCost = 0;
@@ -34,13 +34,13 @@ const { exit } = require("process");
     for (const element of elements) {
         // pass the single handle below
         const single = await page.evaluate((el) => el.outerHTML, element);
-        // console.log(single)
+        console.log(single)
         if (single.includes("Shipping")) {
             console.log(count);
             console.log(single);
             let regex = /class="text-muted">+ ([\s\S]*?) S/g;
             console.log("match")
-            let arr = regex.exec(single);
+            let arr = regex.exec(sisngle);
             console.log(arr)
             shippable = true;
         } else {
