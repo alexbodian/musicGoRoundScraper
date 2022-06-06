@@ -79,7 +79,6 @@ function sleep(ms) {
 
   // looping through all other pages
   for (i = 2; i <= listOfPages[listOfPages.length - 2]; i++) {
-    break;
     // for (i = 2; i <= 3; i++) {
     // await page.setDefaultNavigationTimeout(0);
     let newpage =
